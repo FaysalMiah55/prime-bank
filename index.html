@@ -5,16 +5,147 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prime Bank</title>
-  <!-- CSS only -->
+  <!-- CSS only-Bootstrap cdn link -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
   <!-- Custom CSS -->
   <link rel="stylesheet" href="style.css">
+  <!-- Font -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400&display=swap');
+  </style>
 </head>
 <body>
-  <h1>Welcome to Prime Bank</h1>
+  <main>
+    <!-- Login Section -->
+    <section class="container">
+      <div id="login-area">
+        <h1 class="text-center text-success">Welcome to Prime Bank</h1>
+        <div class="submit-area">
+          <h4>Login</h4>
+          <br>
+          <input type="text" class="form-control" placeholder="Email">
+          <br>
+          <input type="password" class="form-control" placeholder="Password">
+          <br>
+          <button id="login" class="btn btn-success">Enter</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Transaction Area -->
+    <section class="container">
+      <div id="transaction-area">
+        <h1 class="text-center text-success">Transaction Area</h1>
+        <div class="row m-5">
+          <div class="col-md-4">
+            <div class="status deposit">
+              <h4>Deposit</h4>
+              <h1>$ <span id="currentDeposit">00</span></h1>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="status withdraw">
+              <h4>Withdraw</h4>
+              <h1>$ <span id="currentWithdraw">00</span></h1>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="status balance">
+              <h4>Balance</h4>
+              <h1>$ <span id="currentBalance">1200</span></h1>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="submit-area">
+              <h4>Deposit</h4>
+              <input id="addDeposit" class="form-control" type="text" placeholder="$ Amount you want to deposit.">
+              <br>
+              <button id="depositBtn" class="btn btn-success">Deposit</button>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="submit-area">
+              <h4>Withdraw</h4>
+              <input id="addWithdraw" class="form-control" type="text" placeholder="$ Amount you want to withdraw">
+              <br>
+              <button id="withdrawBtn" class="btn btn-success">Withdraw</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
 
-  <!-- JavaScript Bundle with Popper -->
+  <!-- Custom JavaScript -->
+  <script>
+    // Login button event handler
+    const login = document.getElementById("login");
+    login.addEventListener('click', function(){
+      const loginArea = document.getElementById("login-area");
+      loginArea.style.display = "none";
+      const transactionArea = document.getElementById("transaction-area");
+      transactionArea.style.display = "block";
+    });
+
+    // Deposit event handler
+    const depositBtn = document.getElementById("depositBtn");
+    depositBtn.addEventListener('click', function(){
+      const addDepositNumber = getInput("addDeposit");
+      // const addDeposit = document.getElementById("addDeposit").value;
+      // const addDepositNumber = parseFloat(addDeposit);
+
+      addAmount("currentDeposit", addDepositNumber);
+      addAmount("currentBalance", addDepositNumber);
+
+      /*
+      // For deposit 
+      const currentDeposit = document.getElementById("currentDeposit").innerText;
+      const currentDepositNumber = parseFloat(currentDeposit);
+      const totalDeposit = addDepositNumber + currentDepositNumber;
+      document.getElementById("currentDeposit").innerText = totalDeposit;
+
+      // For Balance
+      const currentBalance = document.getElementById("currentBalance").innerText;
+      const currentBalanceNumber = parseFloat(currentBalance);
+      const totalBalance = addDepositNumber + currentBalanceNumber;
+      document.getElementById("currentBalance").innerText = totalBalance;
+      */
+
+      document.getElementById("addDeposit").value = "";
+    });
+
+    // Withdraw event handler
+    const withdrawBtn = document.getElementById("withdrawBtn");
+    withdrawBtn.addEventListener('click', function(){
+      const addWithdrawNumber = getInput("addWithdraw")
+      // const addWithdraw = document.getElementById("addWithdraw").value;
+      // const addWithdrawNumber = parseFloat(addWithdraw);
+
+      addAmount("currentWithdraw", addWithdrawNumber);
+      addAmount("currentBalance", -1*addWithdrawNumber);
+
+      document.getElementById("addWithdraw").value = "";
+    });
+
+    function getInput(id){
+      const getAmount = document.getElementById(id).value;
+      const getAmountNumber = parseFloat(getAmount);
+      return getAmountNumber;
+    };
+
+    function addAmount(id, addDepositNumber){
+      const amount = document.getElementById(id).innerText;
+      const amountNumber = parseFloat(amount);
+      const total = addDepositNumber + amountNumber;
+      document.getElementById(id).innerText = total;
+    };
+
+  </script>
+  <!-- JavaScript Bundle with Popper-Bootstrap cdn link -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 </body>
 </html>
